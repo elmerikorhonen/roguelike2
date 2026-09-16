@@ -7,7 +7,7 @@ public class BoardManager : MonoBehaviour // julkinen ryhmä eli voi muuttaa my�
     {
         public bool Passable; // tehdään luokka passable, joka kertoo onko ruutu läpäistävä vai ei
     }
-    public PlayerController Player; // tehdään julkinen pelaaja, joka voidaan asettaa unityssä
+    
 
     private CellData[,] m_BoardData; // tehdään 2D taulukko, joka sisältää CellData-olioita, jotka kertovat onko ruutu läpäistävä vai ei
     private Tilemap m_Tilemap; // tehdään Tilemap-olio, joka sisältää ruudut, jotka piirretään ruudulle
@@ -22,7 +22,7 @@ public class BoardManager : MonoBehaviour // julkinen ryhmä eli voi muuttaa my�
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Init()
     {
 
         m_Tilemap = GetComponentInChildren<Tilemap>(); // haetaan Tilemap-olio, joka on lapsena BoardManagerissa
@@ -36,6 +36,8 @@ public class BoardManager : MonoBehaviour // julkinen ryhmä eli voi muuttaa my�
             {
                 m_BoardData[x, y] = new CellData();
                 Tile tile; // tehdään Tile-olio, joka sisältää ruudun, joka piirretään ruudulle
+                
+
                 if (x == 0 || y == 0 || x == Width - 1 || y == Height - 1) // jos ollaan reunalla, niin laitetaan seinäruutu
                 {
                     tile = WallTiles[Random.Range(0, WallTiles.Length)];
@@ -50,7 +52,7 @@ public class BoardManager : MonoBehaviour // julkinen ryhmä eli voi muuttaa my�
             }
         }
 
-        Player.Spawn(this, new Vector2Int(1, 1));
+        
     }
     
     public Vector3 CellToWorld(Vector2Int cellIndex)

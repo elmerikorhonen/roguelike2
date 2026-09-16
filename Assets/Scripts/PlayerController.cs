@@ -10,19 +10,13 @@ public class PlayerController : MonoBehaviour
     public void Spawn(BoardManager boardManager, Vector2Int cell) // pelaaja on oikeassa paikassa, kun Spawn kutsutaan, joten ei tarvitse tarkistaa onko cell passable
     {
         m_board = boardManager;
-        m_CellPosition = cell;
-
-        transform.position = m_board.CellToWorld(cell);
+        MoveTo(cell);
     }
-
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void MoveTo(Vector2Int cell)
     {
-
+        m_CellPosition = cell;
+        transform.position = m_board.CellToWorld(m_CellPosition);
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -55,8 +49,7 @@ public class PlayerController : MonoBehaviour
             BoardManager.CellData cellData = m_board.GetCellData(newCellTarget);
             if (cellData != null && cellData.Passable)
             {
-                m_CellPosition = newCellTarget;
-                transform.position = m_board.CellToWorld(m_CellPosition);
+                MoveTo(newCellTarget);
             }
         }
     }
